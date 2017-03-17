@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import random
+import json
 
 from TwitchChat import *
 
@@ -47,12 +48,13 @@ def make_message():
     
     while True:
         word_to_add = get_word(current_word)
-        
+
+        char_count += len(word_to_add) + 1
         if word_to_add == 1 or char_count > 500:
             return msg_string
         
         msg_string = msg_string + word_to_add + " "
-        char_count += len(word_to_add) + 1
+        
         current_word = word_to_add
 
 def get_word(current_word):
@@ -66,18 +68,23 @@ def get_word(current_word):
 i = 0
 
 while True:
-    message = client.get_msg()[2]
+    msg_list = client.get_msg()
+    for message in msg_list:
+        if message:
+            message = message[2]
+        else:
+            continue
 
-    with open("msg_log.txt", 'a') as log_file:
-        log_file.write(i + ':', message, "\n")
+        with open("msg_log.txt", 'a') as log_file:
+            log_file.write(str(i) + ': ' + message + "\n")
+        
+        take_message(message)
+        i += 1
     
-    take_message(message)
-    i += 1
-    
-    if i % 500 == 0:
-        with open("markov_dict.txt", 'w') as file:
-            file.write(markov_dict)
-    if i % 100 == 0:
-        print("Iteration:", i)
-        print(make_message())
-        print()
+        if i % 500 == 0:
+            with open("markov_dict.txt", 'w') as markov_file:
+                markov_file.write(json.dumps(markov_dict))
+        if i % 100 == 0:
+            print("Iteration:", i)
+            print(make_message())
+            print()

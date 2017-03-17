@@ -74,6 +74,7 @@ def get_word(current_word):
             return key
 
 i = 0
+msg_log_buffer = ""
 
 while True:
     msg_list = client.get_msg()
@@ -83,16 +84,18 @@ while True:
         else:
             continue
 
-        with open("msg_log.txt", 'a') as log_file:
-            log_file.write(message + "\n")
-        
+        msg_log_buffer = msg_log_buffer + message + "\n"
+
         take_message(message)
         i += 1
-    
-        if i % 500 == 0:
+        
+        if i % 100 == 0:
+            print("Iterations:", i)
+            print("Saving chain and logs")
+            with open("msg_log.txt", 'a') as log_file:
+                log_file.write(msg_log_buffer)
+            msg_log_buffer = ""
             with open("markov_dict.json", 'w') as markov_file:
                 markov_file.write(json.dumps(markov_dict))
-        if i % 100 == 0:
-            print("Iteration:", i)
-            print(make_message())
+            print("Message:", make_message())
             print()

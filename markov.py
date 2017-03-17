@@ -91,7 +91,6 @@ while True:
         
         if i % 25 == 0:
             print("Iterations:", i)
-            print("Saving chain and logs.")
             with open("msg_log.txt", 'a') as log_file:
                 log_file.write(msg_log_buffer)
             msg_log_buffer = ""

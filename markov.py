@@ -83,7 +83,7 @@ while True:
             continue
 
         with open("msg_log.txt", 'a') as log_file:
-            log_file.write(str(i) + ': ' + message + "\n")
+            log_file.write(message + "\n")
         
         take_message(message)
         i += 1

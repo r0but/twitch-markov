@@ -21,7 +21,7 @@ class TwitchChat():
     def format_msg(self, raw_msg):
         if raw_msg[:4] == "PING":
             print("Got ping: ", raw_msg)
-            sock.sendall(raw_msg.replace("PING", "PONG") + "\r\n")
+            self.sock.sendall(raw_msg.replace("PING", "PONG") + "\r\n")
             print("Responded with pong:", raw_msg.replace("PING, PONG"))
             print()
         elif "PRIVMSG" not in raw_msg:

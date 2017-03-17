@@ -2,3 +2,4 @@ __pycache__
 creds.txt
 markov_dict.json
 msg_log.txt
+time_log.txt

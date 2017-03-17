@@ -89,9 +89,9 @@ while True:
         take_message(message)
         i += 1
         
-        if i % 100 == 0:
+        if i % 25 == 0:
             print("Iterations:", i)
-            print("Saving chain and logs")
+            print("Saving chain and logs.")
             with open("msg_log.txt", 'a') as log_file:
                 log_file.write(msg_log_buffer)
             msg_log_buffer = ""

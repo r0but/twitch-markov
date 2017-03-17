@@ -19,9 +19,16 @@ class TwitchChat():
         print(join_message)
 
     def format_msg(self, raw_msg):
-        if "PRIVMSG" not in raw_msg:
+        if raw_msg[:4] == "PING":
+            print("Got ping: ", raw_msg)
+            sock.sendall(raw_msg.replace("PING", "PONG") + "\r\n")
+            print("Responded with pong:", raw_msg.replace("PING, PONG"))
+            print()
+        elif "PRIVMSG" not in raw_msg:
+            print("Other msg recieved:", raw_msg)
+            print()
             return
-
+        
         msg_start = raw_msg.find(':', 1) + 1
         
         sender_nick = raw_msg[raw_msg.find(':') + 1 : raw_msg.find('!')]
@@ -30,10 +37,10 @@ class TwitchChat():
         return (channel, sender_nick, message)
 
     def get_msg(self):
-        raw_msg = self.sock.recv(512).decode("UTF-8")
+        raw_msg = self.sock.recv(2048).decode("UTF-8")
         msg_list = []
         for msg in raw_msg.split("\r\n"):
             if msg:
-                msg_list.append(format_msg)
+                msg_list.append(self.format_msg(msg))
 
         return msg_list

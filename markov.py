@@ -2,6 +2,7 @@
 
 import random
 import json
+import time
 
 from TwitchChat import *
 
@@ -11,6 +12,11 @@ channel = input("Channel: ")
 
 client = TwitchChat(username, auth_token)
 client.join_channel(channel)
+
+start_time = time.time()
+
+with open("time_log.txt", 'a') as time_log_file:
+    time_log_file.write(time.strftime("Started: %d/%m/%Y %H:%M:%S\n"))
 
 markov_dict = {}
 
@@ -96,5 +102,11 @@ while True:
             msg_log_buffer = ""
             with open("markov_dict.json", 'w') as markov_file:
                 markov_file.write(json.dumps(markov_dict))
+            with open("time_log.txt", 'a') as time_log_file:
+                time_log_file.write("Elapsed: " +
+                                    str(time.time() - start_time) +
+                                    "\n")
+            print("Time elapsed:", time.time() - start_time)
+            
             print("Message:", make_message())
             print()

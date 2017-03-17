@@ -16,7 +16,8 @@ markov_dict = {}
 
 with open("markov_dict.json", 'r') as markov_file:
     json_str = markov_file.read()
-    markov_dict = json.loads(json_str)
+    if json_str:
+        markov_dict = json.loads(json_str)
 
 def take_message(msg):
     split_msg = msg.split()

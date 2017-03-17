@@ -19,7 +19,7 @@ def take_message(msg):
     
     for i in range(len(split_msg)):
         if i == 0:
-            word = 0
+            word = "__START__"
         else:
             word = split_msg[i - 1]
             
@@ -28,7 +28,7 @@ def take_message(msg):
         add_to_chain(word, next_word)
 
     if split_msg:
-        add_to_chain(split_msg[-1], 1)
+        add_to_chain(split_msg[-1], "__END__")
 
 def add_to_chain(word, next_word):
     if word not in markov_dict:
@@ -42,15 +42,18 @@ def add_to_chain(word, next_word):
     markov_dict[word][1][next_word] += 1
 
 def make_message():
-    current_word = 0
+    current_word = "__START__"
     msg_string = ""
     char_count = 0
     
     while True:
         word_to_add = get_word(current_word)
 
+        if word_to_add == "__END__":
+            return msg_string
+
         char_count += len(word_to_add) + 1
-        if word_to_add == 1 or char_count > 500:
+        if char_count > 500:
             return msg_string
         
         msg_string = msg_string + word_to_add + " "
@@ -82,7 +85,7 @@ while True:
         i += 1
     
         if i % 500 == 0:
-            with open("markov_dict.txt", 'w') as markov_file:
+            with open("markov_dict.json", 'w') as markov_file:
                 markov_file.write(json.dumps(markov_dict))
         if i % 100 == 0:
             print("Iteration:", i)

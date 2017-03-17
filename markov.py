@@ -64,13 +64,18 @@ def get_word(current_word):
             return key
 
 i = 0
+
 while True:
     message = client.get_msg()[2]
+
+    with open("msg_log.txt", 'a') as log_file:
+        log_file.write(i + ':', message, "\n")
+    
     take_message(message)
     i += 1
     
     if i % 500 == 0:
-        with open("markov_dict_{}.txt".format(i), w) as file:
+        with open("markov_dict.txt", 'w') as file:
             file.write(markov_dict)
     if i % 100 == 0:
         print("Iteration:", i)

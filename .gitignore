@@ -1,4 +1,4 @@
 __pycache__
 creds.txt
-markov_dict.txt
+markov_dict.json
 msg_log.txt

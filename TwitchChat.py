@@ -8,6 +8,7 @@ class TwitchChat():
         self.sock.sendall(("NICK " + nick + "\r\n").encode("UTF-8"))
 
         welcome_message = self.sock.recv(512).decode("UTF-8")
+        print()
         print(welcome_message)
         
         if channel:

@@ -1,8 +1,16 @@
 __pycache__
-creds.txt # File with twitch username, auth token, and channel to join
-markov_dict.json # Old file that stored markov data structure
-msg_log.txt # Old file that stored message logs
-time_log.txt # Old file that stored time logs
+
+# File with twitch username, auth token, and channel to join
+creds.txt
+
+# Old file for storing markov structure
+markov_dict.json
+
+# Old file for storing message logs
+msg_log.txt
+
+# Old file for storing time logs
+time_log.txt
 
 # Saved markov files
 dict_*

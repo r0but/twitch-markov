@@ -9,7 +9,7 @@ with open("creds.txt", 'r') as creds_file:
     username = creds_file.readline()
     auth_token = creds_file.readline()
 
-channel = input("\nChannel: ")
+channel = input("Channel: ")
 
 irc_bot = twitch.TwitchChat(username, auth_token, channel)
 markov_chain = markov.MarkovChain(channel)

@@ -3,6 +3,7 @@
 import random
 import json
 import time
+import os
 
 from TwitchChat import *
 
@@ -10,20 +11,25 @@ username = input("Username: ")
 auth_token = input("Auth token: ")
 channel = input("Channel: ")
 
+dict_file_name = "markov_dict_{}.json".format(channel)
+msg_log_file_name = "msg_log_{}.txt".format(channel)
+time_log_file_name = "time_log_{}.txt".format(channel)
+
 client = TwitchChat(username, auth_token)
 client.join_channel(channel)
 
 start_time = time.time()
 
-with open("time_log.txt", 'a') as time_log_file:
+with open(time_log_file_name, 'a') as time_log_file:
     time_log_file.write(time.strftime("Started: %d/%m/%Y %H:%M:%S\n"))
 
 markov_dict = {}
 
-with open("markov_dict.json", 'r') as markov_file:
-    json_str = markov_file.read()
-    if json_str:
-        markov_dict = json.loads(json_str)
+if os.path.isfile(dict_file_name):
+    with open(dict_file_name, 'r') as markov_file:
+        json_str = markov_file.read()
+        if json_str:
+            markov_dict = json.loads(json_str)
 
 def take_message(msg):
     split_msg = msg.split()
@@ -97,12 +103,12 @@ while True:
         
         if i % 25 == 0:
             print("Iterations:", i)
-            with open("msg_log.txt", 'a') as log_file:
+            with open(msg_log_file_name, 'a') as log_file:
                 log_file.write(msg_log_buffer)
             msg_log_buffer = ""
-            with open("markov_dict.json", 'w') as markov_file:
+            with open(dict_file_name, 'w') as markov_file:
                 markov_file.write(json.dumps(markov_dict))
-            with open("time_log.txt", 'a') as time_log_file:
+            with open(time_log_file_name, 'a') as time_log_file:
                 time_log_file.write("Elapsed: " +
                                     str(time.time() - start_time) +
                                     "\n")

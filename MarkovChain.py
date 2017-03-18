@@ -3,12 +3,18 @@ import json
 import time
 import os
 
+DICTIONARY_FOLDER = "markov-dicts"
+
+if not os.path.isdir(DICTIONARY_FOLDER):
+    os.makedirs(DICTIONARY_FOLDER)
+
 class MarkovChain():
     def __init__(self, name = "Default"):
         self.markov_dict = {}
 
         self.dict_name = name
-        self.dict_filename = "dict_{}".format(name)
+        self.dict_filename = os.path.join(DICTIONARY_FOLDER,
+                                          "dict_{}".format(name))
 
         self.start_time = time.time()
         self.prev_time = 0.0

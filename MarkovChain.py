@@ -62,8 +62,6 @@ class MarkovChain():
             return
 
         self.msg_log.append(msg_tuple)
-
-        print(msg)
         
         split_msg = msg.split()
     

@@ -1,3 +1,6 @@
+* TODO IRC [0/1]
+** TODO Add proper IRC protocol message hanlding
+   Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
 * TODO URL handling [0/3]
 ** TODO Recognize URLs during message parsing
 ** TODO Ignore symbols that are URLs

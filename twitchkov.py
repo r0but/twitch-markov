@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-import TwitchChat
-import MarkovChain
+import TwitchChat as twitch
+import MarkovChain as markov
 
 username = input("Username: ")
 auth_token = input("\nAuth token: ")
 channel = input("\nChannel: ")
 
-irc_bot = TwitchChat(username, auth_token, channel)
-markov_chain = MarkovChain(channel)
+irc_bot = twitch.TwitchChat(username, auth_token, channel)
+markov_chain = markov.MarkovChain(channel)
 
 msg_count = 0
 while True:

@@ -10,13 +10,13 @@ class MarkovChain():
         self.dict_name = name
         self.dict_filename = "dict_{}".format(name)
 
-        if os.path.isfile(self.dict_filename):
-            self.load_progress()
-
         self.start_time = time.time()
         self.prev_time = 0.0
 
         self.msg_log = []
+
+        if os.path.isfile(self.dict_filename):
+            self.load_progress()
 
     def time_elapsed(self):
         return self.prev_time + (time.time() - self.start_time)
@@ -25,16 +25,16 @@ class MarkovChain():
         return len(self.msg_log)
 
     def save_progress(self):
-        save_dict = {"time": prev_time + (time.time() - self.start_time),
+        save_dict = {"time": self.prev_time + (time.time() - self.start_time),
                      "name": self.dict_name,
                      "msg_log": self.msg_log,
                      "chain": self.markov_dict}
         
-        with open(self.dict_filename, 'r') as dict_file:
+        with open(self.dict_filename, 'w') as dict_file:
             dict_file.write(json.dumps(save_dict))
 
     def load_progress(self):
-        with open(self.dict_filename, 'w') as dict_file:
+        with open(self.dict_filename, 'r') as dict_file:
             json_str = dict_file.read()
             load_dict = json.loads(json_str)
 
@@ -42,6 +42,8 @@ class MarkovChain():
             self.dict_name = load_dict["name"]
             self.msg_log = load_dict["msg_log"]
             self.markov_dict = load_dict["chain"]
+
+            print(load_dict)
 
     def add_to_chain(self, word, next_word):
         if word not in self.markov_dict:
@@ -60,8 +62,8 @@ class MarkovChain():
         msg = msg_tuple[2]
         if not msg:
             return
-        
-        self.msg_log.append(msg)
+
+        self.msg_log.append(msg_tuple)
         
         split_msg = msg.split()
     
@@ -98,9 +100,9 @@ class MarkovChain():
             current_word = word_to_add
 
     def get_word(self, current_word):
-        rand_value = random.randrange(markov_dict[current_word][0]) + 1
+        rand_value = random.randrange(self.markov_dict[current_word][0]) + 1
 
-        for key in markov_dict[current_word][1]:
-            rand_value -= markov_dict[current_word][1][key]
+        for key in self.markov_dict[current_word][1]:
+            rand_value -= self.markov_dict[current_word][1][key]
             if rand_value <= 0:
                 return key

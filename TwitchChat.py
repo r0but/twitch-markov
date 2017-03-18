@@ -37,7 +37,7 @@ class TwitchChat():
         message = raw_msg[msg_start:]
         return (channel, sender_nick, message)
 
-    def get_msg(self):
+    def get_messages(self):
         raw_msg = self.sock.recv(2048).decode("UTF-8")
         msg_list = []
         for msg in raw_msg.split("\r\n"):

@@ -17,3 +17,6 @@ dict_*
 
 # Backup files
 *#*
+
+# Dictionary folder
+markov-dicts/

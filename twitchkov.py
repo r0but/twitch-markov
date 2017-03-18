@@ -16,7 +16,7 @@ while True:
 
     if markov_chain.iterations() % 5 == 1:
         print("Iterations:", markov_chain.iterations())
-        print("Time elapsed:", markov_chain.time_elapsed())
+        print("Time elapsed:", int(markov_chain.time_elapsed()))
         print("Message:", markov_chain.make_message())
         print()
 

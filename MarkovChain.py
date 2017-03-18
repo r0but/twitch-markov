@@ -8,9 +8,9 @@ class MarkovChain():
         self.markov_dict = {}
 
         self.dict_name = name
-        self.dict_filename = "dict_{}".format(dict_name)
+        self.dict_filename = "dict_{}".format(name)
 
-        if os.path.isfile(dict_filename):
+        if os.path.isfile(self.dict_filename):
             self.load_progress()
 
         self.start_time = time.time()
@@ -19,10 +19,10 @@ class MarkovChain():
         self.msg_log = []
 
     def time_elapsed(self):
-        return prev_time + (time.time() - self.start_time)
+        return self.prev_time + (time.time() - self.start_time)
     
     def iterations(self):
-        return len(msg_log)
+        return len(self.msg_log)
 
     def save_progress(self):
         save_dict = {"time": prev_time + (time.time() - self.start_time),
@@ -54,7 +54,10 @@ class MarkovChain():
         
         self.markov_dict[word][1][next_word] += 1
 
-    def take_message(self, msg):
+    def take_message(self, msg_tuple):
+        if not msg_tuple:
+            return
+        msg = msg_tuple[2]
         if not msg:
             return
         

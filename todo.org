@@ -1,0 +1,10 @@
+* TODO URL handling [0/3]
+** TODO Recognize URLs during message parsing
+** TODO Ignore symbols that are URLs
+** TODO Remove URL symbols from already existing dictionaries
+* TODO Interface [0/2]
+** TODO Handle multiple chat streams at once
+   Make sure each stream stays within its own dictionary.
+** TODO Make GUI interface [0/3]
+*** TODO Display multiple chat streams
+*** TODO Generate messages from a specific stream on command

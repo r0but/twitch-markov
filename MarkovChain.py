@@ -43,8 +43,6 @@ class MarkovChain():
             self.msg_log = load_dict["msg_log"]
             self.markov_dict = load_dict["chain"]
 
-            print(load_dict)
-
     def add_to_chain(self, word, next_word):
         if word not in self.markov_dict:
             self.markov_dict[word] = [0, {next_word: 0} ]
@@ -64,6 +62,8 @@ class MarkovChain():
             return
 
         self.msg_log.append(msg_tuple)
+
+        print(msg)
         
         split_msg = msg.split()
     

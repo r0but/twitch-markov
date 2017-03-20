@@ -1,8 +1,19 @@
 import socket
 
+DEFAULT_PORT = 6667
+DEFAULT_SRV_URL = "irc.chat.twitch.tv"
+
 class TwitchChat():
-    def __init__(self, nick, auth, channel = None):
+    def __init__(self, nick, auth, channel = None, url = "irc.chat.twitch.tv",
+                 port = 6667):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        
+        join_server(url, port, nick, auth)
+        
+        if channel:
+            self.join_channel(channel)
+
+    def join_server(self, server_url, port, nick, auth):
         self.sock.connect(("irc.chat.twitch.tv", 6667))
         self.sock.sendall(("PASS " + auth + "\r\n").encode("UTF-8"))
         self.sock.sendall(("NICK " + nick + "\r\n").encode("UTF-8"))
@@ -10,9 +21,7 @@ class TwitchChat():
         welcome_message = self.sock.recv(512).decode("UTF-8")
         print()
         print(welcome_message)
-        
-        if channel:
-            self.join_channel(channel)
+
 
     def join_channel(self, chan_name):
         self.sock.sendall(("JOIN #" + chan_name + "\r\n").encode("UTF-8"))

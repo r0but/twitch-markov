@@ -9,7 +9,7 @@ class TwitchChat():
                  port = 6667):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
-        join_server(url, port, nick, auth)
+        self.join_server(url, port, nick, auth)
         
         if channel:
             self.join_channel(channel)

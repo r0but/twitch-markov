@@ -1,3 +1,6 @@
+* TODO Critical [0/1]
+** TODO Dictionary saving
+   The dictionary holding the data for a channel will be deleted if the process is cancelled while saving the data.
 * TODO IRC [0/2]
 ** TODO Messages get split up. 
    This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.

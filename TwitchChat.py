@@ -2,6 +2,7 @@ import socket
 
 DEFAULT_PORT = 6667
 DEFAULT_SRV_URL = "irc.chat.twitch.tv"
+RECV_SIZE = 512
 
 class TwitchChat():
     def __init__(self, nick, auth, channel = None, url = "irc.chat.twitch.tv",
@@ -18,7 +19,7 @@ class TwitchChat():
         self.sock.sendall(("PASS " + auth + "\r\n").encode("UTF-8"))
         self.sock.sendall(("NICK " + nick + "\r\n").encode("UTF-8"))
 
-        welcome_message = self.sock.recv(512).decode("UTF-8")
+        welcome_message = self.sock.recv(RECV_SIZE).decode("UTF-8")
         print()
         print(welcome_message)
 
@@ -48,7 +49,7 @@ class TwitchChat():
         return (channel, sender_nick, message)
 
     def get_messages(self):
-        raw_msg = self.sock.recv(2048).decode("UTF-8")
+        raw_msg = self.sock.recv(RECV_SIZE).decode("UTF-8")
         msg_list = []
         for msg in raw_msg.split("\r\n"):
             if msg:

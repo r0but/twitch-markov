@@ -1,4 +1,6 @@
-* TODO IRC [0/1]
+* TODO IRC [0/2]
+** TODO Messages get split up. 
+   This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.
 ** TODO Add proper IRC protocol message hanlding
    Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
 * TODO URL handling [0/3]

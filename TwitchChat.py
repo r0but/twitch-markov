@@ -48,7 +48,7 @@ class TwitchChat():
         return (channel, sender_nick, message)
 
     def handle_ping(self, msg):
-        print("Got ping: {}")
+        print("Got ping: {}\n", msg)
         url = msg[msg.find(':') + 1:]
         self.sock.sendall((msg.replace("PING", "PONG") + "\r\n").encode("UTF-8"))
     
@@ -56,16 +56,17 @@ class TwitchChat():
     # Then, should delegate to the proper method.
     # Right now, the only ones I care about are PRIVMSG and PING.
     def format_message(self, msg):
-        if "PRIVMSG" in msg:
+        if "PRIVMSG" in msg[1:msg.find(':', 1)]:
             return self.format_privmsg(msg)
         
-        elif "PING" in msg:
+        elif "PING" == msg[0:4]:
             self.handle_ping(msg)
 
         else:
             self.unknown_messages += 1
             print("Other message recieved:", msg)
             print("Unknown messages:", self.unknown_messages)
+            print()
             return None
     
     # Returns list of tuples in the form (channel, sender_nick, message)

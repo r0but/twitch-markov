@@ -15,8 +15,9 @@ irc_bot = twitch.TwitchChat(username, auth_token, channel)
 markov_chain = markov.MarkovChain(channel)
 
 while True:
-    messages = irc_bot.get_msg()
-    markov_chain.take_message(msg)
+    msg = irc_bot.get_msg()
+    if msg:
+        markov_chain.take_message(msg)
 
     if markov_chain.iterations() % 5 == 1:
         print("Channel:", markov_chain.dict_name)

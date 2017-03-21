@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import TwitchChat as twitch
-import MarkovChain as markov
+import TwitchChat
+import MarkovChain
 
 username = ""
 auth_token = ""
@@ -11,8 +11,8 @@ with open("creds.txt", 'r') as creds_file:
 
 channel = input("Channel: ")
 
-irc_bot = twitch.TwitchChat(username, auth_token, channel)
-markov_chain = markov.MarkovChain(channel)
+irc_bot = TwitchChat.TwitchChat(username, auth_token, channel)
+markov_chain = MarkovChain.MarkovChain(channel)
 
 while True:
     msg = irc_bot.get_msg()

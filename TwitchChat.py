@@ -3,7 +3,7 @@ from collections import deque
 
 DEFAULT_PORT = 6667
 DEFAULT_SRV_URL = "irc.chat.twitch.tv"
-RECV_SIZE = 1024
+RECV_SIZE = 4096
 
 class TwitchChat():
     def __init__(self, nick, auth, channel = None, url = "irc.chat.twitch.tv",

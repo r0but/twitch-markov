@@ -1,4 +1,5 @@
 import socket
+from collections import deque
 
 DEFAULT_PORT = 6667
 DEFAULT_SRV_URL = "irc.chat.twitch.tv"
@@ -14,7 +15,8 @@ class TwitchChat():
         if channel:
             self.join_channel(channel)
 
-        self.message_buffer = ""
+        self.incomplete_msg = ""
+        self.msg_buffer = deque([])
 
         self.unknown_messages = 0
 
@@ -67,19 +69,24 @@ class TwitchChat():
             return None
     
     # Returns list of tuples in the form (channel, sender_nick, message)
-    def get_messages(self):
-        raw_msg = self.message_buffer + self.sock.recv(RECV_SIZE).decode("UTF-8")
-        msg_list = []
+    def get_msg(self):
+        if self.msg_buffer:
+            return self.msg_buffer.popleft()
+        
+        raw_msg = self.incomplete_msg + self.sock.recv(RECV_SIZE).decode("UTF-8")
         
         msg, sep, rest = raw_msg.partition("\r\n")
 
         while sep == "\r\n":
             msg_tup = self.format_message(msg)
             if msg_tup:
-                msg_list.append(msg_tup)
+                self.msg_buffer.append(msg_tup)
 
             msg, sep, rest = rest.partition("\r\n")
 
-        self.message_buffer = msg
+        self.incomplete_msg = msg
 
-        return msg_list
+        if self.msg_buffer:
+            return self.msg_buffer.popleft()
+        else:
+            return None

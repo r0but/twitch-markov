@@ -2,6 +2,7 @@ import random
 import json
 import time
 import os
+from threading import Thread
 
 DICTIONARY_FOLDER = "markov-dicts"
 
@@ -30,14 +31,19 @@ class MarkovChain():
     def iterations(self):
         return len(self.msg_log)
 
-    def save_progress(self):
-        save_dict = {"time": self.prev_time + (time.time() - self.start_time),
+    def _save_dict(self):
+         save_dict = {"time": self.prev_time + (time.time() - self.start_time),
                      "name": self.dict_name,
                      "msg_log": self.msg_log,
                      "chain": self.markov_dict}
-        
-        with open(self.dict_filename, 'w') as dict_file:
-            dict_file.write(json.dumps(save_dict))
+
+         with open(self.dict_filename, 'w') as dict_file:
+             dict_file.write(json.dumps(save_dict))
+
+    def save_progress(self):
+        save_thread = Thread(target=self._save_dict)
+        save_thread.start()
+        save_thread.join()
 
     def load_progress(self):
         with open(self.dict_filename, 'r') as dict_file:

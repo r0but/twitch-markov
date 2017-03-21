@@ -1,16 +1,18 @@
-* TODO Critical [0/1]
-** TODO Dictionary saving
-   The dictionary holding the data for a channel will be deleted if the process is cancelled while saving the data.
-* TODO IRC [0/2]
-** TODO Messages get split up. 
+* TODO Critical [1/1]
+** DONE Dictionary saving
+   The dictionary holding the data for a channel will be deleted if the process is cancelled while saving the data. \\
+   STATUS: Should be fixed now, but not 100% sure.
+* DONE IRC [2/2]
+** DONE Messages get split up. 
    This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.
-** TODO Add proper IRC protocol message hanlding
+** DONE Add proper IRC protocol message hanlding
    Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
 * TODO URL handling [0/3]
 ** TODO Recognize URLs during message parsing
 ** TODO Ignore symbols that are URLs
 ** TODO Remove URL symbols from already existing dictionaries
-* TODO Interface [0/2]
+* TODO Interface [0/3]
+** TODO Take channel and dict name as command line arguments
 ** TODO Handle multiple chat streams at once
    Make sure each stream stays within its own dictionary.
 ** TODO Make GUI interface [0/3]

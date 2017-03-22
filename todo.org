@@ -1,5 +1,5 @@
-* Critical [0/1]
-** TODO Dictionary saving
+* Critical [1/1]
+** DONE Dictionary saving
    The dictionary holding the data for a channel will be deleted if the process is cancelled while saving the data. \\
    STATUS: Should be fixed now, but not 100% sure. \\
    Well the threading solution didn't work. 
@@ -8,7 +8,9 @@
    This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.
 ** DONE Add proper IRC protocol message hanlding
    Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
-* Optimization [0/1]
+* Optimization [0/2]
+** TODO Save the dictionary of Markov data when process is terminated
+   Right now, the messages since the last save are lost when the process is terminated, and the glue script only saves after it recieves five messages.
 ** TODO Remove chat logs from working memory on save
    They just eat too much RAM, and there's no point in keeping all the chat logs in memory the entire time. Get them out of memory when a save happens, and just load them back in from secondary storage if they need to be searched.
 * URL handling [0/3]

@@ -2,7 +2,8 @@
 ** DONE Dictionary saving
    The dictionary holding the data for a channel will be deleted if the process is cancelled while saving the data. \\
    STATUS: Should be fixed now, but not 100% sure. \\
-   Well the threading solution didn't work. 
+   Well the threading solution didn't work. \\
+   Actually I think it did? Welp.
 * IRC [2/2]
 ** DONE Messages get split up. 
    This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.

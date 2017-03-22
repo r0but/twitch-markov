@@ -18,8 +18,8 @@
 ** TODO Recognize URLs during message parsing
 ** TODO Ignore symbols that are URLs
 ** TODO Remove URL symbols from already existing dictionaries
-* Interface [0/3]
-** TODO Take channel and dict name as command line arguments
+* Interface [1/3]
+** DONE Take channel and dict name as command line arguments
 ** TODO Handle multiple chat streams at once
    Make sure each stream stays within its own dictionary.
 ** TODO Make GUI interface [0/3]

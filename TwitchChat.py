@@ -48,9 +48,11 @@ class TwitchChat():
         return (channel, sender_nick, message)
 
     def handle_ping(self, msg):
-        print("Got ping: {}\n", msg)
+        pong = (msg.replace("PING", "PONG") + "\r\n")
+        print("Recieved ping: {}".format(msg))
+        print("Response pong: {}".format(pong))
         url = msg[msg.find(':') + 1:]
-        self.sock.sendall((msg.replace("PING", "PONG") + "\r\n").encode("UTF-8"))
+        self.sock.sendall(pong.encode("UTF-8"))
     
     # First, should determine what kind of operation the message is.
     # Then, should delegate to the proper method.

@@ -54,7 +54,8 @@ class TwitchChat():
     def get_message(self):
         bytes_received = self.sock.recv(RECV_SIZE)
 
-        msg_bytes, sep, rest = (self.incomplete_bytes + bytes_received).partition(b'\r\n')
+        msg_bytes, sep, rest = (self.incomplete_bytes +
+                                bytes_received).partition(b'\r\n')
 
         while sep == b'\r\n':
             msg_tuple = self.format_message(msg_bytes)

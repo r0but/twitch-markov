@@ -7,6 +7,7 @@
    When the last byte that's pulled from the socket is a part of a Unicode codepoint, the app crashes when trying to decode. \\
    Possible fix: Keep as byte array, and only decode to UTF-8 string after delimiting. Can I just delimit with "\r\n".encode("UTF-8")"?
 ** TODO Fix broken pipe issue after ping/pong
+   Others have this issue with Twitch, but I haven't been able to find an official fix. It might be best to wrap message sending or ping handling in an exception, and when it's thrown, call a method that reconnects to the server and channel.
 ** TODO Handle multiple chat streams at once
    Make sure each stream stays within its own dictionary.
 ** DONE Messages get split up. 

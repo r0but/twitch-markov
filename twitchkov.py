@@ -18,7 +18,7 @@ for option, arg in optlist:
 if not channel:
     channel = input("Channel: ")
 if not dict_name:
-    print("No dict_name found, using channel.")
+    print("No dict name specified. Setting it to channel name.")
     dict_name = channel
 
 username = ""

@@ -57,7 +57,8 @@ class TwitchChat():
 
             msg, sep, rest = rest.partition(b'\r\n')
 
-        self.incomplete_bytes = msg
+        if msg:
+            self.incomplete_bytes = msg
 
         if self.msg_buffer:
             return self.msg_buffer.popleft()

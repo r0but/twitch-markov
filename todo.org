@@ -1,4 +1,3 @@
-
 * Critical [1/1]
 ** DONE Dictionary saving
    The dictionary holding the data for a channel will be deleted if the process is cancelled while saving the data. \\
@@ -16,6 +15,7 @@
 
 * Markov [0/1]
 ** TODO Use different symbols for the start and end of messages.
+   This probably should be saved until after migrating to SQLite.
 
 * IRC [4/5]
 ** TODO Handle multiple chat streams at once

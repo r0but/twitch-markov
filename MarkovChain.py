@@ -4,18 +4,17 @@ import time
 import os
 from threading import Thread
 
-DICTIONARY_FOLDER = "markov-dicts"
+DEFAULT_SAVE_DIR = "markov-dicts"
 
-if not os.path.isdir(DICTIONARY_FOLDER):
-    os.makedirs(DICTIONARY_FOLDER)
+if not os.path.isdir(DEFAULT_SAVE_DIR):
+    os.makedirs(DEFAULT_SAVE_DIR)
 
 class MarkovChain():
-    def __init__(self, name = "Default"):
+    def __init__(self, name = "Default", dir = DEFAULT_SAVE_DIR):
         self.markov_dict = {}
 
         self.dict_name = name
-        self.dict_filename = os.path.join(DICTIONARY_FOLDER,
-                                          "dict_{}".format(name))
+        self.dict_filename = os.path.join(dir, "{}.json".format(name))
 
         self.start_time = time.time()
         self.prev_time = 0.0

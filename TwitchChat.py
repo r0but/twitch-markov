@@ -4,12 +4,17 @@ from collections import deque
 DEFAULT_PORT = 6667
 DEFAULT_SRV_URL = "irc.chat.twitch.tv"
 RECV_SIZE = 4096
-DELIMITER = b'\r\n'
 
 class TwitchChat():
-    def __init__(self, nick, auth, channel = None, url = "irc.chat.twitch.tv",
-                 port = 6667):
+    def __init__(self, nick, auth, channel = None, url = DEFAULT_SRV_URL,
+                 port = DEFAULT_PORT):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        self.url = url
+        self.port = port
+        self.nick = nick
+        self.auth = auth
+        self.channel = channel
         
         self.join_server(url, port, nick, auth)
         
@@ -18,8 +23,6 @@ class TwitchChat():
 
         self.incomplete_bytes = b''
         self.msg_buffer = deque([])
-
-        self.unknown_messages = 0
 
     def join_server(self, server_url, port, nick, auth):
         print("Connecting...")
@@ -33,6 +36,9 @@ class TwitchChat():
         print(welcome_message)
         
     def join_channel(self, chan_name):
+        if not self.channel:
+            self.channel = chan_name
+        
         self.send_message("JOIN #" + chan_name)
         join_message = self.sock.recv(512).decode("UTF-8")
         print(join_message)
@@ -79,7 +85,13 @@ class TwitchChat():
         print("Recieved ping: {}".format(msg))
         print("Response pong: {}".format(pong))
         url = msg[msg.find(':') + 1:]
-        self.send_message(pong)
+        try:
+            self.send_message(pong)
+        except IOError as e:
+            print("Error encountered:", e)
+            print("Attempting to reconnect.")
+            self.join_server(self.url, self.port, self.nick, self.auth)
+            self.join_channel(self.channel)
     
     # First, should determine what kind of operation the message is.
     # Then, should delegate to the proper method.
@@ -94,9 +106,7 @@ class TwitchChat():
             self.handle_ping(msg)
 
         else:
-            self.unknown_messages += 1
             print("Other message recieved:", msg)
-            print("Unknown messages:", self.unknown_messages)
             print()
             return None
     

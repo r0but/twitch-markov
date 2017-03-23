@@ -32,7 +32,7 @@ irc_bot = TwitchChat.TwitchChat(username, auth_token, channel)
 markov_chain = MarkovChain.MarkovChain(dict_name)
 
 while True:
-    msg = irc_bot.get_msg()
+    msg = irc_bot.next_msg()
     if msg:
         markov_chain.take_message(msg)
 

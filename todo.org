@@ -1,32 +1,8 @@
+
 * Critical [1/1]
 ** DONE Dictionary saving
    The dictionary holding the data for a channel will be deleted if the process is cancelled while saving the data. \\
-   STATUS: Fixed, at least in Debian.
-
-* IRC [2/4]
-** TODO Fix broken pipe issue after ping/pong
-   Others have this issue with Twitch, but I haven't been able to find an official fix. It might be best to wrap message sending or ping handling in an exception, and when it's thrown, call a method that reconnects to the server and channel.
-** TODO Handle multiple chat streams at once
-   Make sure each stream stays within its own dictionary.
-** DONE Fix unicode symbols being chopped up
-   When the last byte that's pulled from the socket is a part of a Unicode codepoint, the app crashes when trying to decode. \\
-   Possible fix: Keep as byte array, and only decode to UTF-8 string after delimiting. Can I just delimit with "\r\n".encode("UTF-8")"?
-** DONE Messages get split up. 
-   This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.
-** DONE Add proper IRC protocol message hanlding
-   Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
-
-* Optimization [0/3]
-** TODO Migrate data saving to database (probably SQLite), rather than using JSON.
-** TODO Save the dictionary of Markov data when process is terminated
-   Right now, the messages since the last save are lost when the process is terminated, and the glue script only saves after it recieves five messages.
-** TODO Remove chat logs from main memory on save
-   They just eat too much RAM, and there's no point in keeping all the chat logs in memory the entire time. Get them out of memory when a save happens, and just load them back in from secondary storage if they need to be searched.
-
-* URL handling [0/3]
-** TODO Recognize URLs during message parsing
-** TODO Ignore symbols that are URLs
-** TODO Remove URL symbols from already existing dictionaries
+   - Fixed, at least in Debian.
 
 * Interface [1/3]
 ** TODO Store Markov data in a user-specified path, rather than in a directory with the project files.
@@ -34,3 +10,29 @@
 *** TODO Display multiple chat streams
 *** TODO Generate messages from a specific stream on command
 ** DONE Take channel and dict name as command line arguments
+
+* IRC [4/5]
+** TODO Handle multiple chat streams at once
+   Make sure each stream stays within its own dictionary.
+** DONE Fix broken pipe issue after ping/pong
+   Others have this issue with Twitch, but I haven't been able to find an official fix. It might be best to wrap message sending or ping handling in an exception, and when it's thrown, call a method that reconnects to the server and channel.
+   - <2017-03-23 Thu>: Should be fixed.
+** DONE Fix unicode symbols being chopped up
+   When the last byte that's pulled from the socket is a part of a Unicode codepoint, the app crashes when trying to decode.
+   - Fixed, by only encoding bytes to UTF-8 when handling a single message.
+** DONE Messages get split up. 
+   This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.
+** DONE Add proper IRC protocol message hanlding
+   Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
+
+* Optimization [0/3]
+** TODO Save the dictionary of Markov data when process is terminated
+   Right now, the messages since the last save are lost when the process is terminated, and the glue script only saves after it recieves five messages.
+** TODO Remove chat logs from main memory on save
+   They just eat too much RAM, and there's no point in keeping all the chat logs in memory the entire time. Get them out of memory when a save happens, and just load them back in from secondary storage if they need to be searched.
+** TODO Migrate data saving to database (probably SQLite), rather than using JSON.
+
+* URL handling [0/3]
+** TODO Recognize URLs during message parsing
+** TODO Ignore symbols that are URLs
+** TODO Remove URL symbols from already existing dictionaries

@@ -1,21 +1,21 @@
 * Critical [1/1]
 ** DONE Dictionary saving
    The dictionary holding the data for a channel will be deleted if the process is cancelled while saving the data. \\
-   STATUS: Should be fixed now, but not 100% sure. \\
-   Well the threading solution didn't work. \\
-   Actually I think it did? Welp.
-* IRC [3/3]
+   STATUS: Fixed, at least in Debian.
+* IRC [2/4]
  ** DONE Fix unicode symbols being chopped up
    When the last byte that's pulled from the socket is a part of a Unicode codepoint, the app crashes when trying to decode. \\
    Possible fix: Keep as byte array, and only decode to UTF-8 string after delimiting. Can I just delimit with "\r\n".encode("UTF-8")"?
+** TODO Fix broken pipe issue after ping/pong
+** TODO Handle multiple chat streams at once
+   Make sure each stream stays within its own dictionary.
 ** DONE Messages get split up. 
    This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.
 ** DONE Add proper IRC protocol message hanlding
    Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
-** TODO Handle multiple chat streams at once
-   Make sure each stream stays within its own dictionary.
 
-* Optimization [0/2]
+* Optimization [0/3]
+** TODO Migrate data saving to database (probably SQLite), rather than 
 ** TODO Save the dictionary of Markov data when process is terminated
    Right now, the messages since the last save are lost when the process is terminated, and the glue script only saves after it recieves five messages.
 ** TODO Remove chat logs from working memory on save
@@ -25,7 +25,7 @@
 ** TODO Ignore symbols that are URLs
 ** TODO Remove URL symbols from already existing dictionaries
 * Interface [1/3]
-** DONE Take channel and dict name as command line arguments
 ** TODO Make GUI interface [0/3]
 *** TODO Display multiple chat streams
 *** TODO Generate messages from a specific stream on command
+** DONE Take channel and dict name as command line arguments

@@ -21,7 +21,9 @@ channel, and `-f` followed by a string containing the name of the file you want 
 also pass a `-d` parameter to specify the directory to save and look for files containing generated data. If no directory is
 specified, these files will be stored in a folder in the project directory called `markov-dicts`. If no filename is specified, 
 the channel name is used. If no channel name is specified as a command line parameter, the script will prompt 
-for a channel name from standard input. 
+for a channel name from standard input.
+
+An example is: `./twitchkov.py -c twitchpresents -f power-rangers -d ~/.markov-dicts`.
 
 The script will listen to the specified twitch channel, and, every five messages recieved, will generate a 
 new message using Markov chains, send it to standard output along with the channel, iteration count, and runtime,

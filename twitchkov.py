@@ -24,12 +24,9 @@ import os
 
 DEFAULT_SAVE_DIR = "markov-dicts"
 
-if not os.path.isdir(DEFAULT_SAVE_DIR):
-    os.makedirs(DEFAULT_SAVE_DIR)
-
 channel = ""
 dict_name = ""
-dir_name = DEFAULT_SAVE_DIR
+save_dir = DEFAULT_SAVE_DIR
 
 optlist, args = getopt.getopt(sys.argv[1:], "c:f:d:")
 for option, arg in optlist:
@@ -41,7 +38,11 @@ for option, arg in optlist:
         dict_name = arg
     elif option == "-d":
         print("Directory found in args:", arg)
-        dir_name = arg
+        save_dir = arg
+
+if not os.path.isdir(save_dir):
+    print("Save directory doesn't exist. Creating it:", save_dir)
+    os.makedirs(save_dir)
 
 if not channel:
     channel = input("Channel: ")
@@ -57,7 +58,7 @@ with open("creds.txt", 'r') as creds_file:
     auth_token = creds_file.readline()
 
 irc_bot = TwitchChat.TwitchChat(username, auth_token, channel)
-markov_chain = MarkovChain.MarkovChain(dir_name, dict_name)
+markov_chain = MarkovChain.MarkovChain(save_dir, dict_name)
 
 while True:
     msg = irc_bot.next_msg()

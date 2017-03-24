@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with twitch-markov.  If not, see <http://www.gnu.org/licenses/>.
 
-
 import random
 import json
 import time
@@ -27,7 +26,9 @@ class MarkovChain():
         self.markov_dict = {}
 
         self.dict_name = name
+        print("Save directory:", save_dir)
         self.dict_filename = os.path.join(save_dir, "{}.json".format(name))
+        print("Dictionary file:", self.dict_filename)
 
         self.start_time = time.time()
         self.prev_time = 0.0

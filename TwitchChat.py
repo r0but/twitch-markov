@@ -51,6 +51,10 @@ class TwitchChat():
         welcome_message = self.sock.recv(RECV_SIZE).decode("UTF-8")
         print()
         print(welcome_message)
+
+    def leave_server(self):
+        self.sock.shutdown(socket.SHUT_WR)
+        self.sock.close()
         
     def join_channel(self, chan_name):
         if not self.channel:
@@ -106,6 +110,8 @@ class TwitchChat():
             self.send_message(pong)
         except IOError as e:
             print("Error encountered:", e)
+            print("Attempting to close connection.")
+            self.leave_server()
             print("Attempting to reconnect.")
             self.join_server(self.url, self.port, self.nick, self.auth)
             self.join_channel(self.channel)

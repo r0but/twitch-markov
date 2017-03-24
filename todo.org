@@ -32,11 +32,11 @@
    Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
 
 * Optimization [0/3]
+** TODO Migrate data saving to database (probably SQLite3), rather than using JSON.
 ** TODO Save the dictionary of Markov data when process is terminated
-   Right now, the messages since the last save are lost when the process is terminated, and the glue script only saves after it recieves five messages.
+   Right now, the messages since the last save are lost when the process is terminated, and the glue script only saves after it recieves five messages. After it gets migrated to SQLite, it shouldn't be hard to just update the database after every single message is recieved.
 ** TODO Remove chat logs from main memory on save
    They just eat too much RAM, and there's no point in keeping all the chat logs in memory the entire time. Get them out of memory when a save happens, and just load them back in from secondary storage if they need to be searched.
-** TODO Migrate data saving to database (probably SQLite), rather than using JSON.
 
 * URL handling [0/3]
 ** TODO Recognize URLs during message parsing

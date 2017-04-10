@@ -71,6 +71,7 @@ class TwitchChat():
 
         encoded_msg = msg.encode("UTF-8")
         self.sock.sendall(encoded_msg)
+        self.sock.flush()
 
     def get_message(self):
         bytes_received = self.sock.recv(RECV_SIZE)

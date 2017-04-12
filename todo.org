@@ -3,6 +3,24 @@
    The dictionary holding the data for a channel will be deleted if the process is cancelled while saving the data. \\
    - Fixed, at least in Debian.
 
+* IRC [4/6]
+** TODO Automatically reconnect after disconnect
+   If the stream is disconnected, automatically try to reconnect to it after a certain interval of time until reconnected.
+** TODO Handle multiple chat streams at once
+   Make sure each stream stays within its own dictionary.
+** DONE Fix broken pipe issue after ping/pong
+   Others have this issue with Twitch, but I haven't been able to find an official fix. It might be best to wrap message sending or ping handling in an exception, and when it's thrown, call a method that reconnects to the server and channel.
+   - <2017-03-23 Thu>: Should be fixed.
+   - <2017-04-12 Wed>: Okay so this might be just an issue with the rpi 3 I'm running this thing on. Need to automatically try to reconnect every n seconds on disconnecting. Making this a new issue.
+** DONE Fix unicode symbols being chopped up
+   When the last byte that's pulled from the socket is a part of a Unicode codepoint, the app crashes when trying to decode.
+   - Fixed, by only encoding bytes to UTF-8 when handling a single message.
+** DONE Messages get split up. 
+   This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.
+** DONE Add proper IRC protocol message hanlding
+   Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
+
+
 * Interface [2/4]
 ** TODO Read options and such in from a config file.
    The options should be the default save directory, the default server to connect to, and the default channel to connect to. Maybe instead of taking stuff as command line arguments, I can have users make a config file and just pass an argument pointing to it? Channel and dict name should probably stay arguments, though.
@@ -16,20 +34,6 @@
 * Markov [0/1]
 ** TODO Use different symbols for the start and end of messages.
    This probably should be saved until after migrating to SQLite.
-
-* IRC [4/5]
-** TODO Handle multiple chat streams at once
-   Make sure each stream stays within its own dictionary.
-** DONE Fix broken pipe issue after ping/pong
-   Others have this issue with Twitch, but I haven't been able to find an official fix. It might be best to wrap message sending or ping handling in an exception, and when it's thrown, call a method that reconnects to the server and channel.
-   - <2017-03-23 Thu>: Should be fixed.
-** DONE Fix unicode symbols being chopped up
-   When the last byte that's pulled from the socket is a part of a Unicode codepoint, the app crashes when trying to decode.
-   - Fixed, by only encoding bytes to UTF-8 when handling a single message.
-** DONE Messages get split up. 
-   This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.
-** DONE Add proper IRC protocol message hanlding
-   Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
 
 * Optimization [0/3]
 ** TODO Migrate data saving to database (probably SQLite3), rather than using JSON.

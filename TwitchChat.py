@@ -25,7 +25,7 @@ RECV_SIZE = 4096
 class TwitchChat():
     def __init__(self, nick, auth, channel = None, url = DEFAULT_SRV_URL,
                  port = DEFAULT_PORT):
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.join_server(url, port, nick, auth)
 
         self.url = url
         self.port = port
@@ -41,9 +41,9 @@ class TwitchChat():
         self.incomplete_bytes = b''
         self.msg_buffer = deque([])
 
-    def join_server(self, server_url, port, nick, auth):
+    def join_server(self, url, port, nick, auth):
         print("Connecting...")
-        self.sock.connect(("irc.chat.twitch.tv", 6667))
+        self.sock = socket.create_connection((url, port))
         print("Connected. Sending login credentials...")
         self.send_message("PASS " + auth)
         self.send_message("NICK " + nick)

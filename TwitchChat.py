@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2017 Joshua Trahan
+# Copyright (C) 2017 Joshua Trahan
 #
 # This file is part of twitch-markov.
 #
@@ -61,7 +61,7 @@ class TwitchChat():
             self.channel = chan_name
         
         self.send_message("JOIN #" + chan_name)
-        join_message = self.sock.recv(512).decode("UTF-8")
+        join_message = self.sock.recv(RECV_SIZE).decode("UTF-8")
         print(join_message)
 
     # Expects message as UTF-8 string

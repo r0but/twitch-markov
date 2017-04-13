@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Copyright (C) 2011-2017 Joshua Trahan
+# Copyright (C) 2017 Joshua Trahan
 #
 # This file is part of twitch-markov.
 #

@@ -17,23 +17,26 @@
 
 import socket
 from collections import deque
+import time
 
 DEFAULT_PORT = 6667
 DEFAULT_SRV_URL = "irc.chat.twitch.tv"
 RECV_SIZE = 4096
+DEFAULT_CONNECT_WAIT = 5
 
 class TwitchChat():
     def __init__(self, nick, auth, channel = None, url = DEFAULT_SRV_URL,
-                 port = DEFAULT_PORT):
-        self.join_server(url, port, nick, auth)
-
+                 port = DEFAULT_PORT, wait = DEFAULT_CONNECT_WAIT):
+        
         self.url = url
         self.port = port
         self.nick = nick
         self.auth = auth
         self.channel = channel
-        
-        self.join_server(url, port, nick, auth)
+        self.wait = wait
+
+        self.join_server(url, port)
+        self.authenticate(nick, auth)
         
         if channel:
             self.join_channel(channel)
@@ -41,10 +44,20 @@ class TwitchChat():
         self.incomplete_bytes = b''
         self.msg_buffer = deque([])
 
-    def join_server(self, url, port, nick, auth):
-        print("Connecting...")
-        self.sock = socket.create_connection((url, port))
-        print("Connected. Sending login credentials...")
+    def join_server(self, url, port):
+        while True:
+            try:
+                print("Connecting...")
+                self.sock = socket.create_connection((url, port))
+                print("Connected.")
+                break
+            except:
+                print("Error connecting to server. Trying again in",
+                      self.wait, "seconds.")
+                time.sleep(self.wait)
+                continue
+
+    def authenticate(self, nick, auth):
         self.send_message("PASS " + auth)
         self.send_message("NICK " + nick)
 

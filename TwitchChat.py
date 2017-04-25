@@ -123,11 +123,6 @@ class TwitchChat():
             self.send_message(pong)
         except IOError as e:
             print("Error encountered:", e)
-            print("Attempting to close connection.")
-            self.leave_server()
-            print("Attempting to reconnect.")
-            self.join_server(self.url, self.port, self.nick, self.auth)
-            self.join_channel(self.channel)
     
     # First, should determine what kind of operation the message is.
     # Then, should delegate to the proper method.

@@ -16,7 +16,7 @@
 # along with twitch-markov.  If not, see <http://www.gnu.org/licenses/>.
 
 import random
-import sq
+import sqlite3
 import time
 import os
 from threading import Thread
@@ -54,7 +54,7 @@ class MarkovChain():
              dict_file.write(json.dumps(save_dict))
 
     def _update_db(self):
-        
+        return
 
     def save_progress(self):
         save_thread = Thread(target=self.update_db)

@@ -5,4 +5,6 @@
 * Messages
   - SequenceNum: Compound primary key with CollectionName. Counts up from 0 for each collection.
   - CollectionName: Compound primary key with SequenceNum, and foreign key for Collections. Identifies collection the message belongs to.
-  - 
+  - Message: The actual message that was received from the chat.
+  - Sender: The sender of the message.
+  - Time: Date and time the message was received.

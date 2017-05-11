@@ -3,8 +3,8 @@
    The dictionary holding the data for a channel will be deleted if the process is cancelled while saving the data. \\
    - Fixed, at least in Debian.
 
-* IRC [4/6]
-** TODO Automatically reconnect after disconnect
+* IRC [5/6]
+** DONE Automatically reconnect after disconnect
    If the stream is disconnected, automatically try to reconnect to it after a certain interval of time until reconnected.
 ** TODO Handle multiple chat streams at once
    Make sure each stream stays within its own dictionary.
@@ -19,7 +19,6 @@
    This needs to be fixed ASAP, and probably should be part of proper IRC protocol hanlding.
 ** DONE Add proper IRC protocol message hanlding
    Parsing the IRC protocol messages in the method for extracting user messages is embarassing.
-
 
 * Interface [2/4]
 ** TODO Read options and such in from a config file.

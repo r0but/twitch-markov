@@ -1,0 +1,8 @@
+* Collections
+  - CollectionName: Primary key. Name of the collection of message to generate Markov chains from.
+  - ChannelName: Name of the channel the messages are collected from.
+  - Time: Total time the channel has been listened to.
+* Messages
+  - SequenceNum: Compound primary key with CollectionName. Counts up from 0 for each collection.
+  - CollectionName: Compound primary key with SequenceNum, and foreign key for Collections. Identifies collection the message belongs to.
+  - 
